@@ -32,8 +32,12 @@ public class MainFragment extends Fragment {
     Button save_btn;
     @BindView(R2.id.persons_lv)
     ListView persons_lv;
-    List<Person> persons;
+    List<Person> persons ;
     RealmPersons realmPersons = new RealmPersons();
+
+
+
+
 
     @Nullable
     @Override
@@ -49,18 +53,36 @@ public class MainFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ArrayAdapter<Person> adapter = new ArrayAdapter<Person>(getActivity(),R.layout.fragment,realmPersons.readPersons(getActivity()));
         persons_lv.setAdapter(adapter);
+        save_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                addPerson(adapter);
+
+
+            }
+
+
+
+        });
+
+
 
 
     }
 
-    public RealmPersons addPerson(){
-
+    public void addPerson(ArrayAdapter adapter){
         Person person = new Person();
         person.setName(String.valueOf(name_et.getText()));
         person.setSurname(String.valueOf(surname_et.getText()));
         person.setSerialNumber(Integer.parseInt((serial_number_et.getText().toString())));
-         save_btn.setOnClickListener(view -> realmPersons.saveReminder(getActivity(), person));
-        return realmPersons;
+        realmPersons.saveReminder(getActivity(), person);
+        adapter.add(realmPersons);
+
+
+
+
+
 
 }
 
