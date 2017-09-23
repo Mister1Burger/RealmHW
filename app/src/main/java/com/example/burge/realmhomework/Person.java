@@ -1,6 +1,8 @@
 package com.example.burge.realmhomework;
 
 
+import java.util.List;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -10,6 +12,15 @@ public class Person extends RealmObject{
     private int serialNumber;
     private String surname;
     private String name;
+    List<Person> persons;
+
+    public List<Person> getPersons() {
+        return persons;
+    }
+
+    public void setPersons(List<Person> persons) {
+        this.persons = persons;
+    }
 
     public Person() {
     }
