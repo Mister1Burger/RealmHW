@@ -1,6 +1,7 @@
 package com.example.burge.realmhomework;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.Arrays;
 import java.util.List;
@@ -32,7 +34,10 @@ public class MainFragment extends Fragment {
     Button save_btn;
     @BindView(R2.id.persons_lv)
     ListView persons_lv;
-    Person person ;
+
+
+
+
     RealmPersons realmPersons = new RealmPersons();
 
 
@@ -51,13 +56,13 @@ public class MainFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ArrayAdapter<Person> adapter = new ArrayAdapter<Person>(getActivity(),R.layout.fragment,person.getPersons());
+        ArrayAdapter<Person> adapter = new Adapter(getActivity(),R.layout.fragment,realmPersons.readPersons(getActivity()));
         persons_lv.setAdapter(adapter);
         save_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                addPerson(adapter);
+                addPerson((Adapter) adapter);
 
 
             }
@@ -69,11 +74,13 @@ public class MainFragment extends Fragment {
 
 
 
+
     }
 
-    public void addPerson(ArrayAdapter adapter){
-        person.setName(String.valueOf(name_et.getText()));
-        person.setSurname(String.valueOf(surname_et.getText()));
+    public void addPerson(Adapter adapter){
+        Person person = new Person();
+        person.setName(name_et.getText().toString());
+        person.setSurname(surname_et.getText().toString());
         person.setSerialNumber(Integer.parseInt((serial_number_et.getText().toString())));
         realmPersons.saveReminder(getActivity(), person);
         adapter.add(person);
@@ -83,7 +90,5 @@ public class MainFragment extends Fragment {
 
 
 
-}
-
-
+    }
 }

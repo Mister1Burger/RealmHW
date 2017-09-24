@@ -12,15 +12,9 @@ public class Person extends RealmObject{
     private int serialNumber;
     private String surname;
     private String name;
-    List<Person> persons;
 
-    public List<Person> getPersons() {
-        return persons;
-    }
 
-    public void setPersons(List<Person> persons) {
-        this.persons = persons;
-    }
+
 
     public Person() {
     }
@@ -47,5 +41,13 @@ public class Person extends RealmObject{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String toString() {
+        return "Person{" +
+                "serialNumber=" + serialNumber +
+                ", surname=" + surname +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
